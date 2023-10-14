@@ -87,7 +87,7 @@ if __name__ == "__main__":
             .sum()
             .reset_index())
     
-    df["WeekDay"] = df["Date"].dt.day_name(locale="pt_BR.utf8")
+    df["WeekDay"] = df["Date"].dt.day_name(locale="pt_BR")
 
     # Filters
     creative_filter, date_range = make_filters_time_series(df)
