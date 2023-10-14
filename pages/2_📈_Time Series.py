@@ -79,7 +79,7 @@ if __name__ == "__main__":
     
     df = (df[[
             "Date", 
-            "WeekDay"
+            "WeekDay",
             "CreativeType", 
             "ClickThroughConversions",
             "ViewThroughConversions",
