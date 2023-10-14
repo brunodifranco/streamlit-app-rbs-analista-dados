@@ -42,7 +42,6 @@ if __name__ == "__main__":
 
     # Initial setup
     df = data_setup("data/Base de dados - Case Analista Jr - RBS Performance.csv")
-    df["WeekDay"] = df["Date"].dt.day_name(locale="pt_BR")
     df["Month"] = df["Date"].dt.month
 
     # Filters

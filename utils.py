@@ -80,4 +80,16 @@ def data_setup(data_path: str) -> DataFrame:
     df["TotalConversions"] = df["ClickThroughConversions"] + df["ViewThroughConversions"]
     df["ConversionRate"] = df["TotalConversions"]/df["TotalImpressions"]
 
+    dias_semana = {
+                    'Monday': 'Segunda-feira',
+                    'Tuesday': 'Terça-feira',
+                    'Wednesday': 'Quarta-feira',
+                    'Thursday': 'Quinta-feira',
+                    'Friday': 'Sexta-feira',
+                    'Saturday': 'Sábado',
+                    'Sunday': 'Domingo'
+                  }
+    df["WeekDay"] = df["Date"].dt.day_name()
+    df['WeekDay'] = df['WeekDay'].replace(dias_semana)
+
     return df

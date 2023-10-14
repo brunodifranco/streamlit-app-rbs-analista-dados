@@ -87,8 +87,6 @@ if __name__ == "__main__":
             .sum()
             .reset_index())
     
-    df["WeekDay"] = df["Date"].dt.day_name(locale="pt_BR")
-
     # Filters
     creative_filter, date_range = make_filters_time_series(df)
     filtered_data = df[(df['CreativeType'].isin(creative_filter)) & (df['Date'] >= date_range[0]) & (df['Date'] <= date_range[1])]
