@@ -8,7 +8,7 @@ def make_filters_time_series(df):
     
     """
     st.sidebar.header("Filtros")
-    creative_filter = st.sidebar.multiselect('Selecionar CreativeType', 
+    creative_filter = st.sidebar.multiselect('Selecione o tipo de criativo', 
                                         default=["Custom", "Custom template"],
                                         options=list(df['CreativeType'].unique()), 
                                         max_selections=3)
@@ -36,7 +36,7 @@ def make_plots_time_series(filtered_data):
                 hover_name="WeekDay",
                 title="Conversões Diretas")
 
-    fig1.update_layout(height=800)
+    fig1.update_layout(height=700)
     fig1.update_xaxes(title_text='Data')
     fig1.update_yaxes(title_text="Conversões Diretas")
 
@@ -47,7 +47,7 @@ def make_plots_time_series(filtered_data):
                 hover_name="WeekDay",
                 title="Conversões Indiretas")
 
-    fig2.update_layout(height=800)
+    fig2.update_layout(height=700)
     fig2.update_xaxes(title_text='Data')
     fig2.update_yaxes(title_text="Conversões Indiretas")
 
@@ -58,7 +58,7 @@ def make_plots_time_series(filtered_data):
                 hover_name="WeekDay",
                 title=f"Conversões Totais")
 
-    fig3.update_layout(height=800)
+    fig3.update_layout(height=700)
     fig3.update_xaxes(title_text='Data')
     fig3.update_yaxes(title_text="Conversões Totais")
 
@@ -70,13 +70,23 @@ def make_plots_time_series(filtered_data):
     return None
 
 if __name__ == "__main__":    
-    st.title("Séries Temporais de Conversões por Tipo de Criativo")    
-    st.markdown('- #### Nessa página você encontra as séries temporais de conversões diretas, indiretas e totais, com a possibilidade de filtrar por tipo de criativo, além selecionar o período desejado para a análise. ')
-    st.markdown('- Os filtros estão na lateral da página, sendo possível escolher no máximo 3 tipos de criativos por vez para a visualização conjunta.')
-    st.markdown('- Passando o mouse por cima de cada gráfico são retornadas mais informações, como o número exato de conversões e a data exata, incluindo o dia da semana.')
+    st.header("Séries Temporais de Conversões por Tipo de Criativo")    
+    st.markdown('- ##### Nessa página você encontra as séries temporais de conversões diretas, indiretas e totais, com a possibilidade de filtrar por tipo de criativo, além selecionar o período desejado para a análise. ')
+    st.markdown('- Os filtros estão na lateral da página, sendo possível escolher no máximo 3 tipos de criativos por vez para a visualização conjunta. Passando o mouse por cima de cada gráfico são retornadas mais informações, como o número exato de conversões e a data exata, incluindo o dia da semana.')
 
+    # Initial setup
     df = data_setup("data/Base de dados - Case Analista Jr - RBS Performance.csv")
-    df = df[["Date", "CreativeType", "ClickThroughConversions", "ViewThroughConversions", "TotalConversions"]].groupby(["Date", "CreativeType"]).sum().reset_index()
+    
+    df = (df[[
+            "Date", 
+            "CreativeType", 
+            "ClickThroughConversions",
+            "ViewThroughConversions",
+            "TotalConversions"]]
+            .groupby(["Date", "CreativeType"])
+            .sum()
+            .reset_index())
+    
     df["WeekDay"] = df["Date"].dt.day_name(locale="pt_BR.utf8")
 
     # Filters
